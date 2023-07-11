@@ -11,16 +11,15 @@ def elkuld():
     print("Véleményed az oldalról:", velemeny_text.get("1.0", tk.END))
     print("Feliratkozol a hírlevélre?", feliratkozas_var.get())
 
-# Létrehozzuk a fő ablakot
-gyoker = tk.Tk()
-gyoker.title("Véleményező adatlap")
+# Létrehozzuk a fő
+ablak = tk.Tk()
+ablak.title("kozlekedes.org")
 
 # kozlekedes.org címke
-cimke = tk.Label(gyoker, text="kozlekedes.org")
-cimke.pack()
-
+cimke = tk.Label(ablak, text="Mond el a véleményed bátran !", font=("Arial", 16), bg="yellow")
+cimke.pack(fill='x')
 # Személyes adataid keret
-szemelyes_frame = tk.LabelFrame(gyoker, text="Személyes adataid")
+szemelyes_frame = tk.LabelFrame(ablak, text="Személyes adataid")
 szemelyes_frame.pack(padx=10, pady=10)
 
 # Név mező
@@ -36,7 +35,7 @@ email_entry = tk.Entry(szemelyes_frame)
 email_entry.grid(row=1, column=1)
 
 # Véleményed keret
-velemeny_frame = tk.LabelFrame(gyoker, text="Véleményed")
+velemeny_frame = tk.LabelFrame(ablak, text="Véleményed")
 velemeny_frame.pack(padx=10, pady=10)
 
 # Hol hallottál rólunk?
@@ -89,8 +88,8 @@ feliratkozas_checkbox = tk.Checkbutton(velemeny_frame, text="Feliratkozol a hír
 feliratkozas_checkbox.grid(row=8, column=0, columnspan=2, sticky=tk.W)
 
 # Küldés gomb
-kuld_button = tk.Button(gyoker, text="Küldés", command=elkuld)
+kuld_button = tk.Button(ablak, text="Küldés", command=elkuld)
 kuld_button.pack(pady=10)
 
 # Fő ablak indítása
-gyoker.mainloop()
+ablak.mainloop()
