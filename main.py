@@ -47,13 +47,18 @@ forras_combobox = ttk.Combobox(velemeny_frame, values=forrasok)
 forras_combobox.current(0)
 forras_combobox.grid(row=0, column=1, sticky=tk.W)
 
+
+# Elválasztó vonal
+elvalaszto = ttk.Separator(velemeny_frame, orient=tk.HORIZONTAL)
+elvalaszto.grid(row=1, column=0, columnspan=2, sticky="ew", pady=10)
+
 # Visszalátogatsz a kozlekedes.org oldalra?
 ujra_cimke = tk.Label(velemeny_frame, text="Visszalátogatsz a kozlekedes.org oldalra?")
-ujra_cimke.grid(row=1, column=0, sticky=tk.W)
+ujra_cimke.grid(row=2, column=0, sticky=tk.W)
 ujra_var = tk.StringVar()
 
 ujra_radio_frame = tk.Frame(velemeny_frame)
-ujra_radio_frame.grid(row=1, column=1, sticky=tk.W)
+ujra_radio_frame.grid(row=3, column=0, sticky=tk.W)
 
 ujra_radio_1 = tk.Radiobutton(ujra_radio_frame, text="Igen", variable=ujra_var, value="Igen")
 ujra_radio_1.pack(side=tk.LEFT)
@@ -66,18 +71,22 @@ ujra_radio_3.pack(side=tk.LEFT)
 
 # Elválasztó vonal
 elvalaszto = ttk.Separator(velemeny_frame, orient=tk.HORIZONTAL)
-elvalaszto.grid(row=2, column=0, columnspan=2, sticky="ew", pady=10)
+elvalaszto.grid(row=4, column=0, columnspan=2, sticky="ew", pady=10)
+
+# Üres label
+ures_label = tk.Label(velemeny_frame)
+ures_label.grid(row=5, column=0)
 
 # Véleményed az oldalról:
 velemeny_cimke = tk.Label(velemeny_frame, text="Véleményed az oldalról:")
-velemeny_cimke.grid(row=4, column=0, sticky=tk.W)
+velemeny_cimke.grid(row=6, column=0, sticky=tk.W)
 velemeny_text = tk.Text(velemeny_frame, height=6)
-velemeny_text.grid(row=5, column=0, columnspan=2, padx=5, pady=5, sticky=tk.W+tk.E+tk.N+tk.S)
+velemeny_text.grid(row=7, column=0, columnspan=2, padx=5, pady=5, sticky=tk.W+tk.E+tk.N+tk.S)
 
 # Feliratkozol a hírlevélre?
 feliratkozas_var = tk.IntVar()
 feliratkozas_checkbox = tk.Checkbutton(velemeny_frame, text="Feliratkozol a hírlevélre", variable=feliratkozas_var)
-feliratkozas_checkbox.grid(row=7, column=0, columnspan=2, sticky=tk.W)
+feliratkozas_checkbox.grid(row=8, column=0, columnspan=2, sticky=tk.W)
 
 # Küldés gomb
 kuld_button = tk.Button(gyoker, text="Küldés", command=elkuld)
