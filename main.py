@@ -1,26 +1,39 @@
 import tkinter as tk
 from tkinter import ttk
+import csv
 
 def elkuld():
     nev = nev_entry.get()
     email = email_entry.get()
-    print("Név:", nev)
-    print("Email:", email)
-    print("Hol hallottál rólunk?", forras_combobox.get())
-    print("Visszalátogatsz a kozlekedes.org oldalra?", ujra_var.get())
-    print("Véleményed az oldalról:", velemeny_text.get("1.0", tk.END))
-    print("Feliratkozol a hírlevélre?", feliratkozas_var.get())
+    hallott = forras_combobox.get()
+    visszalatogat = ujra_var.get()
+    velemeny = velemeny_text.get("1.0", tk.END).strip()
+    feliratkozas = feliratkozas_var.get()
 
-# Létrehozzuk a fő
+    adatok = [nev, email, hallott, visszalatogat, velemeny, feliratkozas]
+
+    with open('kozlekedes.csv', 'a', newline='', encoding='utf-8') as file:
+        writer = csv.writer(file)
+        writer.writerow(adatok)
+
+
+    # Beviteli mezők törlése
+    nev_entry.delete(0, tk.END)
+    email_entry.delete(0, tk.END)
+    velemeny_text.delete("1.0", tk.END)
+    feliratkozas_checkbox.deselect()
+
+# Létrehozzuk a fő ablakot
 ablak = tk.Tk()
 ablak.title("kozlekedes.org")
 
 # kozlekedes.org címke
-cimke = tk.Label(ablak, text="Mond el a véleményed bátran !", font=("Arial", 16), bg="yellow")
+cimke = tk.Label(ablak, text="Mond el a véleményed bátran!", font=("Arial", 18), bg="yellow")
 cimke.pack(fill='x')
+
 # Személyes adataid keret
-szemelyes_frame = tk.LabelFrame(ablak, text="Személyes adataid")
-szemelyes_frame.pack(padx=10, pady=10)
+szemelyes_frame = tk.LabelFrame(ablak, text="Személyes adataid", fg="green")
+szemelyes_frame.pack(padx=10, pady=10, anchor="w")
 
 # Név mező
 nev_cimke = tk.Label(szemelyes_frame, text="Neved:")
@@ -35,7 +48,7 @@ email_entry = tk.Entry(szemelyes_frame)
 email_entry.grid(row=1, column=1)
 
 # Véleményed keret
-velemeny_frame = tk.LabelFrame(ablak, text="Véleményed")
+velemeny_frame = tk.LabelFrame(ablak, text="Véleményed", fg="green")
 velemeny_frame.pack(padx=10, pady=10)
 
 # Hol hallottál rólunk?
@@ -45,7 +58,6 @@ forrasok = ["Google", "Barátok", "Facebook", "Reklám"]
 forras_combobox = ttk.Combobox(velemeny_frame, values=forrasok)
 forras_combobox.current(0)
 forras_combobox.grid(row=0, column=1, sticky=tk.W)
-
 
 # Elválasztó vonal
 elvalaszto = ttk.Separator(velemeny_frame, orient=tk.HORIZONTAL)
@@ -84,7 +96,7 @@ velemeny_text.grid(row=7, column=0, columnspan=2, padx=5, pady=5, sticky=tk.W+tk
 
 # Feliratkozol a hírlevélre?
 feliratkozas_var = tk.IntVar()
-feliratkozas_checkbox = tk.Checkbutton(velemeny_frame, text="Feliratkozol a hírlevélre", variable=feliratkozas_var)
+feliratkozas_checkbox = tk.Checkbutton(velemeny_frame, text="Feliratkozom a hírlevélre", variable=feliratkozas_var)
 feliratkozas_checkbox.grid(row=8, column=0, columnspan=2, sticky=tk.W)
 
 # Küldés gomb
