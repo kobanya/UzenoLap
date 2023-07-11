@@ -41,19 +41,19 @@ velemeny_frame.pack(padx=10, pady=10)
 
 # Hol hallottál rólunk?
 forras_cimke = tk.Label(velemeny_frame, text="Hol hallottál rólunk?")
-forras_cimke.pack(anchor=tk.W)
+forras_cimke.grid(row=0, column=0, sticky=tk.W)
 forrasok = ["Google", "Barátok", "Facebook", "Reklám"]
 forras_combobox = ttk.Combobox(velemeny_frame, values=forrasok)
 forras_combobox.current(0)
-forras_combobox.pack(anchor=tk.W)
+forras_combobox.grid(row=0, column=1, sticky=tk.W)
 
 # Visszalátogatsz a kozlekedes.org oldalra?
 ujra_cimke = tk.Label(velemeny_frame, text="Visszalátogatsz a kozlekedes.org oldalra?")
-ujra_cimke.pack(anchor=tk.W)
-
+ujra_cimke.grid(row=1, column=0, sticky=tk.W)
 ujra_var = tk.StringVar()
+
 ujra_radio_frame = tk.Frame(velemeny_frame)
-ujra_radio_frame.pack(anchor=tk.W)
+ujra_radio_frame.grid(row=1, column=1, sticky=tk.W)
 
 ujra_radio_1 = tk.Radiobutton(ujra_radio_frame, text="Igen", variable=ujra_var, value="Igen")
 ujra_radio_1.pack(side=tk.LEFT)
@@ -66,14 +66,14 @@ ujra_radio_3.pack(side=tk.LEFT)
 
 # Véleményed az oldalról:
 velemeny_cimke = tk.Label(velemeny_frame, text="Véleményed az oldalról:")
-velemeny_cimke.pack(anchor=tk.W)
+velemeny_cimke.grid(row=2, column=0, sticky=tk.W)
 velemeny_text = tk.Text(velemeny_frame, height=6)
-velemeny_text.pack(anchor=tk.W)
+velemeny_text.grid(row=3, column=0, columnspan=2, padx=5, pady=5, sticky=tk.W+tk.E+tk.N+tk.S)
 
 # Feliratkozol a hírlevélre?
 feliratkozas_var = tk.IntVar()
 feliratkozas_checkbox = tk.Checkbutton(velemeny_frame, text="Feliratkozol a hírlevélre", variable=feliratkozas_var)
-feliratkozas_checkbox.pack(anchor=tk.W)
+feliratkozas_checkbox.grid(row=4, column=0, columnspan=2, sticky=tk.W)
 
 # Küldés gomb
 kuld_button = tk.Button(gyoker, text="Küldés", command=elkuld)
