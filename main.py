@@ -10,12 +10,12 @@ def elkuld():
     velemeny = velemeny_text.get("1.0", tk.END).strip()
     feliratkozas = feliratkozas_var.get()
 
+    feliratkozas = "IGEN" if feliratkozas_var.get() == 1 else "NEM"
     adatok = [nev, email, hallott, visszalatogat, velemeny, feliratkozas]
 
     with open('kozlekedes.csv', 'a', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
         writer.writerow(adatok)
-
 
     # Beviteli mezők törlése
     nev_entry.delete(0, tk.END)
@@ -23,6 +23,19 @@ def elkuld():
     velemeny_text.delete("1.0", tk.END)
     feliratkozas_checkbox.deselect()
 
+    # Frissítsük a válaszok táblázatot
+    frissit_vaszontablazat()
+
+def frissit_vaszontablazat():
+    # Töröljük a táblázat tartalmát
+    for i in tablazat.get_children():
+        tablazat.delete(i)
+
+    # Beolvassuk a kozlekedes.csv adatokat és hozzáadjuk a táblázathoz
+    with open('kozlekedes.csv', 'r', encoding='utf-8') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            tablazat.insert("", "end", values=row)
 # Létrehozzuk a fő ablakot
 ablak = tk.Tk()
 ablak.title("kozlekedes.org")
@@ -102,6 +115,30 @@ feliratkozas_checkbox.grid(row=8, column=0, columnspan=2, sticky=tk.W)
 # Küldés gomb
 kuld_button = tk.Button(ablak, text="Küldés", command=elkuld)
 kuld_button.pack(pady=10)
+# kozlekedes.org címke
+cimke2 = tk.Label(ablak, text="A beküldött válaszok", font=("Arial", 18), bg="yellow")
+cimke2.pack(fill='x')
+# Válaszok keret
+valaszok_frame = tk.LabelFrame(ablak, text="Válaszok", fg="blue")
+valaszok_frame.pack(padx=10, pady=10, anchor="w")
+
+# Válaszok táblázat
+tablazat = ttk.Treeview(valaszok_frame, columns=["Név", "Email", "Hallott", "Visszalátogat", "Vélemény", "Feliratkozás"], show="headings")
+tablazat.heading("Név", text="Név")
+tablazat.column("Név", width=200)
+tablazat.heading("Email", text="Email")
+tablazat.column("Email", width=310)
+tablazat.heading("Hallott", text="Hol hallottál?")
+tablazat.heading("Visszalátogat", text="Visszajösz?")
+tablazat.heading("Vélemény", text="Vélemény")
+tablazat.heading("Feliratkozás", text="Hírlrvél")
+tablazat.grid(row=0, column=0, sticky="nsew")
+style = ttk.Style()
+style.configure("Treeview", rowheight=35)
+
+valaszok_frame.grid_columnconfigure(0, weight=1)
 
 # Fő ablak indítása
+frissit_vaszontablazat()
 ablak.mainloop()
+
